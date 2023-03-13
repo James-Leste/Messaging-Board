@@ -1,0 +1,17 @@
+server:
+  port: 9090
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rm-bp1wew66l75y6l5175o.mysql.rds.aliyuncs.com:3306/forumdb?serverTimezone=Asia/Shanghai
+    username: root
+    password: 2385823041aAA
+  jackson:
+    time-zone: Asia/Shanghai
+  banner:
+    location: classpath:banner-gun.txt
+  servlet:
+    multipart:
+      # 定义单次上传文件大小
+      max-file-size: 10MB
+      max-request-size: 10MB

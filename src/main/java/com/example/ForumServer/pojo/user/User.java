@@ -1,4 +1,4 @@
-package com.example.ForumServer.user;
+package com.example.ForumServer.pojo.user;
 
 import lombok.*;
 
