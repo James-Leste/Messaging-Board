@@ -10,7 +10,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public List<User> getUser() {
+    public List<User> getAllUser() {
         return userMapper.findAll();
     }
 }
