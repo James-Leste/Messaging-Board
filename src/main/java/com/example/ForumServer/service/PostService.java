@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PostService {
 
-    List<Post> getPostByUser(User user);
+    //public boolean Insert(Post post);
 }

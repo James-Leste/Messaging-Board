@@ -5,6 +5,7 @@ import com.example.ForumServer.pojo.posts.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -20,11 +21,12 @@ public class PostController {
 
     @PostMapping(value = "/create/post")
     public int insertPost(@RequestBody Post post){
-        return postMapper.insert(post);
+        return 0;
+        //return postMapper.insert(post);
     }
 
     @GetMapping(value = "/getAll/post")
-    public List<Post> getAllPosts(){
-        return postMapper.findAllPosts();
+    public Collection<Post> getAllPosts(){
+        return postMapper.getAll();
     }
 }
