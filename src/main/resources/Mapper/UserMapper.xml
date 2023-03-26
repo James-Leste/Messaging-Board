@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ForumServer.mapper.UserMapper">
+    <update id="update">
+        update user
+        <set>
+            <if test="user_name != null">
+                user_name = #{user_name},
+            </if>
+            <if test="user_email != null">
+                user_email = #{user_email},
+            </if>
+            <if test="user_avatar != null">
+                user_avatar = #{user_avatar},
+            </if>
+            <if test="user_bio != null">
+                user_bio = #{user_bio}
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+</mapper>

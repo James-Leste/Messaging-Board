@@ -10,7 +10,6 @@ import java.util.List;
 @Mapper
 public interface PostMapper {
 
-
     @Select("select * from user where post_id = #{post_id};")
     List<Post> get(@Param("post_id") String post_id);
 

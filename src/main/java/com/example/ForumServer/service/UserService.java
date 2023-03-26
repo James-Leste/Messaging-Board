@@ -8,5 +8,7 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    public boolean login(User user);
+    public int save(User user);
+
+    public List<User> findAll();
 }

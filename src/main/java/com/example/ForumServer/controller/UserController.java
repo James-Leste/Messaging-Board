@@ -7,6 +7,7 @@ import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController // RestController 代表这个类处理http请求
@@ -22,14 +23,25 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping("/save")
+    public int save(@RequestBody User user){
+        return userService.save(user);
+    }
+
+    @GetMapping("/all")
+    public List<User> findAll(){
+        return userService.findAll();
+    }
+
     @PostMapping("/login")
+    // @RequestBody注解可以把传过来的JSON数据转为对象
     public boolean login(@RequestBody User user){
         String username = user.getUser_name();
         String password = user.getUser_password();
         if(username.isBlank() || password.isBlank()){
             return false;
         }
-        return userService.login(user);
+        return false;
     }
 //    @RequestMapping(value = "/get/users", method = RequestMethod.GET)
 //    public List<User> getAllUsers(){
