@@ -10,12 +10,8 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private UserMapper userMapper;
-
     @Autowired
-    public UserServiceImpl(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
+    private UserMapper userMapper;
 
     @Override
     public int save(User user) {
@@ -29,5 +25,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userMapper.getAll();
+    }
+
+    @Override
+    public int delete(int id) {
+        return userMapper.delete(id);
     }
 }

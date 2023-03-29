@@ -11,4 +11,6 @@ public interface UserService {
     public int save(User user);
 
     public List<User> findAll();
+
+    public int delete(int id);
 }

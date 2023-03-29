@@ -19,11 +19,17 @@ public interface UserMapper {
     @Select("select * from user;")
     List<User> getAll();
 
-    @Insert("insert into user (user_name, user_email, user_password) values (#{user_name}, #{user_email}, #{user_password})")
+    @Select("select * from user limit #{start}, #{pageSize}")
+    List<User> getUsersByPage(@Param("start") int start, @Param("pageSize") int pageSize);
+
+    @Select("select count(*) from user")
+    int count();
+
+    @Insert("insert into user (user_name, user_email, user_password) values (#{user_name}, #{user_email}, #{user_password});")
     int insert(User user);
 
-    @Delete("")
-    Post delete(int id);
+    @Delete("Delete from user where id = #{id};")
+    int delete(@Param("id") int id);
 
 
     int update(User user);

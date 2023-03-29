@@ -7,7 +7,9 @@ import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController // RestController 代表这个类处理http请求
@@ -15,13 +17,16 @@ import java.util.List;
 @CrossOrigin
 public class UserController {
 
-    @Resource
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private UserMapper userMapper;
+
+//    @Autowired
+//    public UserController(UserService userService) {
+//        this.userService = userService;
+//    }
 
     @PostMapping("/save")
     public int save(@RequestBody User user){
@@ -42,6 +47,23 @@ public class UserController {
             return false;
         }
         return false;
+    }
+
+    @DeleteMapping("/{id}")
+    public int delete(@PathVariable int id){
+        return userService.delete(id);
+    }
+
+    @GetMapping("/page")
+    public Map<String, Object> findByPage(@RequestParam int pageNumber, @RequestParam int pageSize){
+        //分页查询
+        int start = (pageNumber - 1) * pageSize;
+        int userCount = userMapper.count();
+        List<User> result = userMapper.getUsersByPage(start, pageSize);
+        Map<String, Object> response = new HashMap<>();
+        response.put("total", userCount);
+        response.put("result", result);
+        return response;
     }
 //    @RequestMapping(value = "/get/users", method = RequestMethod.GET)
 //    public List<User> getAllUsers(){
