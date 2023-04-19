@@ -19,6 +19,11 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
+    public User getUserById(String user_id) {
+        return userMapper.getUserById(user_id).get(0);
+    }
+
+    @Override
     public Result login(UserDto userDto) {
         String user_email = userDto.getUser_email();
         String user_password = userDto.getUser_password();
@@ -26,7 +31,7 @@ public class UserServiceImpl implements UserService {
         if(users.size() == 1){
             User user = users.get(0);
             BeanUtils.copyProperties(user, userDto);
-            userDto.setToken(JwtUtils.genToken(user.getId().toString(), user.getUser_password()));
+            userDto.setToken(JwtUtils.genToken(user.getId().toString(), user.getUser_email())); //生成token
             boolean isSuccess = user.getUser_password().equals(user_password);
             //登录成功返回success和用户对象, 失败返回401
             return isSuccess ? Result.success(userDto) : Result.error(Constants.code_401, "密码账号错误");

@@ -16,8 +16,8 @@ public class JwtUtils {
     public static String genToken(String user_id, String sign){
         Calendar instance = Calendar.getInstance();
         instance.add(Calendar.HOUR, 2);
-        return JWT.create().withAudience(user_id)
+        return JWT.create().withAudience(user_id) //用户ID作为载荷
                 .withExpiresAt(instance.getTime())
-                .sign(Algorithm.HMAC256(sign));
+                .sign(Algorithm.HMAC256(sign)); //用户的一个字段作为载荷
     }
 }

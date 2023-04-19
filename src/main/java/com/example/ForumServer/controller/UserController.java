@@ -80,4 +80,9 @@ public class UserController {
         response.put("result", result);
         return response;
     }
+
+    @GetMapping("/test")
+    public User test(@RequestParam String id){
+        return userService.getUserById(id);
+    }
 }

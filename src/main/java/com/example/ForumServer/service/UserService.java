@@ -14,6 +14,8 @@ public interface UserService {
 
     public List<User> findAll();
 
+    public User getUserById(String user_id);
+
     public int delete(int id);
 
     Result login(UserDto userDto);
