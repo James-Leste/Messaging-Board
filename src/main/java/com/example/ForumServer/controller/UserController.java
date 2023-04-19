@@ -1,9 +1,13 @@
 package com.example.ForumServer.controller;
 
+
+import com.example.ForumServer.Common.Result;
 import com.example.ForumServer.pojo.user.User;
 import com.example.ForumServer.mapper.UserMapper;
+import com.example.ForumServer.pojo.user.UserDto;
 import com.example.ForumServer.service.UserService;
-import jakarta.annotation.Resource;
+
+import com.example.ForumServer.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +33,7 @@ public class UserController {
 //    }
 
     @PostMapping("/save")
-    public int save(@RequestBody User user){
+    public Result save(@RequestBody User user){
         return userService.save(user);
     }
 
@@ -40,13 +44,24 @@ public class UserController {
 
     @PostMapping("/login")
     // @RequestBody注解可以把传过来的JSON数据转为对象
-    public boolean login(@RequestBody User user){
-        String username = user.getUser_name();
-        String password = user.getUser_password();
-        if(username.isBlank() || password.isBlank()){
-            return false;
+    public Result login(@RequestBody UserDto userDto){
+        String user_email = userDto.getUser_email();
+        String user_password = userDto.getUser_password();
+        if(user_email.isBlank() || user_password.isBlank()){
+            return Result.paraError(); //预先判断参数是否为空
         }
-        return false;
+        return userService.login(userDto);
+    }
+
+    @PostMapping("/register")
+    public Result signUp(@RequestBody User user){
+        String user_name = user.getUser_name();
+        String user_email = user.getUser_email();
+        String user_password = user.getUser_password();
+        if(user_email.isBlank() || user_password.isBlank() || user_name.isBlank()){
+            return Result.paraError();
+        }
+        return userService.save(user);
     }
 
     @DeleteMapping("/{id}")
@@ -65,34 +80,4 @@ public class UserController {
         response.put("result", result);
         return response;
     }
-//    @RequestMapping(value = "/get/users", method = RequestMethod.GET)
-//    public List<User> getAllUsers(){
-//        return userMapper.findAll();
-//    }
-//
-//    @GetMapping(value = "/get/user")
-//    public List<User> getUserByEmail(String user_email){
-//        return userMapper.findUserByEmail(user_email);
-//    }
-//
-//    @GetMapping("/string")
-//    public String getString(@RequestParam(value = "m") String msg){
-//        return "hello, " + msg;
-//    }
-//
-//    @RequestMapping(value = "/insert/user", method = RequestMethod.POST)
-//    public int insertUser(@RequestBody User user){
-//        return userMapper.insert(user);
-//    }
-//
-//    @GetMapping(value = "/validate")
-//    public boolean validateUser(String user_email, String user_password){
-//        List<User> users = getUserByEmail(user_email);
-//        if(users.size() != 1) return false;
-//        else{
-//            User user = users.get(0);
-//            return user.getUser_password().equals(user_password);
-//        }
-//    }
-
 }

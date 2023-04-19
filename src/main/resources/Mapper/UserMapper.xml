@@ -22,4 +22,21 @@
             id = #{id}
         </where>
     </update>
+
+    <insert id="insert">
+        insert into user
+            (
+                 user_name, user_email, user_password
+                 <if test="user_avatar != null">
+                 , user_avatar
+                 </if>
+            )
+        values
+            (
+                #{user_name}, #{user_email}, #{user_password}
+                <if test="user_avatar != null">
+                    , #{user_avatar}
+                </if>
+            )
+    </insert>
 </mapper>

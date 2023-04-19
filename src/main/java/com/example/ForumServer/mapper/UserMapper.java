@@ -25,7 +25,7 @@ public interface UserMapper {
     @Select("select count(*) from user")
     int count();
 
-    @Insert("insert into user (user_name, user_email, user_password) values (#{user_name}, #{user_email}, #{user_password});")
+    //@Insert("insert into user (user_name, user_email, user_password) values (#{user_name}, #{user_email}, #{user_password});")
     int insert(User user);
 
     @Delete("Delete from user where id = #{id};")

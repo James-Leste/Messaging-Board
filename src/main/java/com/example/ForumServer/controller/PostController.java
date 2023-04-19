@@ -1,5 +1,6 @@
 package com.example.ForumServer.controller;
 
+import com.example.ForumServer.Common.Result;
 import com.example.ForumServer.mapper.PostMapper;
 import com.example.ForumServer.pojo.posts.Post;
 import jakarta.annotation.Resource;
@@ -21,8 +22,8 @@ public class PostController {
     }
 
     @PostMapping(value = "/create")
-    public int insertPost(@RequestBody Post post){
-        return 0;
+    public Result insertPost(@RequestBody Post post){
+        return new Result();
         //return postMapper.insert(post);
     }
 
