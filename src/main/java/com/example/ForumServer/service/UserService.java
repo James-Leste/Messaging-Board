@@ -16,6 +16,8 @@ public interface UserService {
 
     public User getUserById(String user_id);
 
+    public Result getUserByEmail(String user_email);
+
     public int delete(int id);
 
     Result login(UserDto userDto);

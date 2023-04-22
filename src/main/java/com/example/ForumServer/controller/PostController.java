@@ -3,32 +3,33 @@ package com.example.ForumServer.controller;
 import com.example.ForumServer.Common.Result;
 import com.example.ForumServer.mapper.PostMapper;
 import com.example.ForumServer.pojo.posts.Post;
-import jakarta.annotation.Resource;
+import com.example.ForumServer.service.PostService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping(value ="/post")
 @CrossOrigin
 public class PostController {
 
-    private final PostMapper postMapper;
+    @Autowired
+    private PostMapper postMapper;
 
     @Autowired
-    public PostController(PostMapper postMapper){
-            this.postMapper = postMapper;
-    }
+    private PostService postService;
 
-    @PostMapping(value = "/create")
+
+    @PostMapping(value = "/insert")
     public Result insertPost(@RequestBody Post post){
-        return new Result();
+        return postService.save(post);
         //return postMapper.insert(post);
     }
 
-    @GetMapping(value = "/getAll")
-    public Collection<Post> getAllPosts(){
+    @GetMapping(value = "/all")
+    public List<Post> getAllPosts(){
         return postMapper.getAll();
     }
 }

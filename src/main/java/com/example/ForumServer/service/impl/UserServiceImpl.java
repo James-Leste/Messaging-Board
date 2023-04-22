@@ -24,6 +24,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Result getUserByEmail(String user_email) {
+        if(userMapper.getUserByEmail(user_email).size() == 1){
+            return Result.success("个人信息获取成功", userMapper.getUserByEmail(user_email).get(0));
+        } else{
+            return Result.error(Constants.code_500, "个人信息获取失败");
+        }
+    }
+
+    @Override
     public Result login(UserDto userDto) {
         String user_email = userDto.getUser_email();
         String user_password = userDto.getUser_password();
@@ -31,7 +40,7 @@ public class UserServiceImpl implements UserService {
         if(users.size() == 1){
             User user = users.get(0);
             BeanUtils.copyProperties(user, userDto);
-            userDto.setToken(JwtUtils.genToken(user.getId().toString(), user.getUser_email())); //生成token
+            userDto.setToken(JwtUtils.genToken(user.getId().toString(), user.getUser_create_time().toString())); //生成token
             boolean isSuccess = user.getUser_password().equals(user_password);
             //登录成功返回success和用户对象, 失败返回401
             return isSuccess ? Result.success(userDto) : Result.error(Constants.code_401, "密码账号错误");
@@ -52,6 +61,8 @@ public class UserServiceImpl implements UserService {
                 return Result.error(Constants.code_500, "注册失败, 邮箱已被占用");
             }
         } else{ //user 已经存在
+            userMapper.update(user);
+            user = userMapper.getUserById(user.getId().toString()).get(0);
             return Result.success(user.getUser_name() + " 修改成功", user);
         }
     }

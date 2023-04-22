@@ -21,6 +21,8 @@ import java.util.Map;
 @CrossOrigin
 public class UserController {
 
+
+
     @Autowired
     private UserService userService;
 
@@ -31,6 +33,7 @@ public class UserController {
 //    public UserController(UserService userService) {
 //        this.userService = userService;
 //    }
+
 
     @PostMapping("/save")
     public Result save(@RequestBody User user){
@@ -58,7 +61,7 @@ public class UserController {
         String user_name = user.getUser_name();
         String user_email = user.getUser_email();
         String user_password = user.getUser_password();
-        if(user_email.isBlank() || user_password.isBlank() || user_name.isBlank()){
+        if(user_email.isBlank() || user_name.isBlank()){
             return Result.paraError();
         }
         return userService.save(user);
@@ -79,6 +82,11 @@ public class UserController {
         response.put("total", userCount);
         response.put("result", result);
         return response;
+    }
+
+    @GetMapping("/personal")
+    public Result getUserById(@RequestParam String user_email){
+        return userService.getUserByEmail(user_email);
     }
 
     @GetMapping("/test")

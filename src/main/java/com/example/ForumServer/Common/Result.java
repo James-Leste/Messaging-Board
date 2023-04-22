@@ -13,11 +13,11 @@ public class Result {
     private Object data;
 
     public static Result success(){
-        return new Result(Constants.code_200, "", null);
+        return new Result(Constants.code_200, "成功", null);
     }
 
     public static Result success(Object object){
-        return new Result(Constants.code_200, "", object);
+        return new Result(Constants.code_200, "成功", object);
     }
 
     public static Result success(String message, Object object){

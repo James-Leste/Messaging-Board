@@ -20,6 +20,14 @@ public class JwtInterceptor implements HandlerInterceptor {
     @Autowired
     private UserService userService;
 
+    /**
+     * @description
+     * @param request 请求
+     * @param response 响应体
+     * @param handler 映射的方法
+     * @return 是否放行
+     * @throws Exception token 解析失败异常
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //获取请求头中的token
@@ -47,7 +55,7 @@ public class JwtInterceptor implements HandlerInterceptor {
             throw new ServiceException(Constants.code_401, "用户不存在, 请重新获取token");
         }
         //用户邮箱加签验证token
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getUser_email())).build();
+        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getUser_create_time().toString())).build();
         try{
             jwtVerifier.verify(token);
         }catch (JWTVerificationException jv){
