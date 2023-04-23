@@ -2,5 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.ForumServer.mapper.PostMapper">
-
+    <update id="update">
+        update post
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content_mark != null">
+                content_mark = #{content_mark},
+            </if>
+            <if test="comment_count != null">
+                comment_count = #{comment_count},
+            </if>
+            <if test="vote_up_count != null">
+                vote_up_count = #{vote_up_count},
+            </if>
+            <if test="vote_down_count != null">
+                vote_down_count = #{vote_down_count}
+            </if>
+        </set>
+        <where>
+            post_id = #{post_id}
+        </where>
+    </update>
 </mapper>

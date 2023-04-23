@@ -2,6 +2,7 @@ package com.example.ForumServer.mapper;
 
 import com.example.ForumServer.pojo.posts.Post;
 
+
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -16,8 +17,16 @@ public interface PostMapper {
     @Select("select * from post;")
     List<Post> getAll();
 
-    @Insert("insert into post (user_id, content_mark, content_rend) values (#{user_id}, #{content_mark}, #{content_rend})")
+    @Insert("insert into post (user_id, title, content_mark) values (#{user_id}, #{title}, #{content_mark})")
     int insert(Post post);
+
+    int update(Post post);
+
+    @Select("select * from post limit #{start}, #{pageSize}")
+    List<Post> getPostsByPage(@Param("start") int start, @Param("pageSize") int pageSize);
+
+    @Select("select count(*) from post")
+    int count();
 
     @Delete("")
     Post delete(int id);

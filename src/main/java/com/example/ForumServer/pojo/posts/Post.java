@@ -15,8 +15,8 @@ public class Post {
 
     private BigInteger post_id;
     @NonNull private BigInteger user_id;
+    @NonNull private String title;
     @NonNull private String content_mark;
-    @NonNull private String content_rend;
     private int comment_count;
     private int vote_up_count;
     private int vote_down_count;

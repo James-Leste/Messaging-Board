@@ -18,14 +18,13 @@ public class PostServiceImpl implements PostService {
     private PostMapper postMapper;
     @Override
     public Result save(Post post) {
-        int n = postMapper.insert(post);
-        Result result;
-        if(n > 0) {
-            result = Result.success("发帖成功");
-        } else {
-            result = Result.error(Constants.code_402, "发帖失败");
+        if(post.getPost_id() == null){ //这是一条新增的帖子
+            postMapper.insert(post);
+            return Result.success("发帖成功");
+        }else{
+            postMapper.update(post);
+            return Result.success("主题帖修改成功");
         }
-        return result;
     }
 
     @Override
