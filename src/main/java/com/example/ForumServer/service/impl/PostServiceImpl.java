@@ -9,6 +9,7 @@ import com.example.ForumServer.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 
@@ -35,6 +36,16 @@ public class PostServiceImpl implements PostService {
     @Override
     public Result getPostByEmail(String user_email) {
         return null;
+    }
+
+    @Override
+    public Result getPostById(BigInteger post_id) {
+        List<Post> posts = postMapper.getPostsById(post_id);
+        if(posts.size() == 1){
+            return Result.success("帖子读取成功", posts.get(0));
+        } else {
+            return Result.error(Constants.code_402, "帖子读取出错");
+        }
     }
 
     @Override

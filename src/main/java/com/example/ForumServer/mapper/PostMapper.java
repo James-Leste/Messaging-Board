@@ -5,6 +5,7 @@ import com.example.ForumServer.pojo.posts.Post;
 
 import org.apache.ibatis.annotations.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 
@@ -24,6 +25,9 @@ public interface PostMapper {
 
     @Select("select * from post limit #{start}, #{pageSize}")
     List<Post> getPostsByPage(@Param("start") int start, @Param("pageSize") int pageSize);
+
+    @Select("Select * from post where post_id = #{post_id}")
+    List<Post> getPostsById(@Param("post_id")BigInteger post_id);
 
     @Select("select count(*) from post")
     int count();

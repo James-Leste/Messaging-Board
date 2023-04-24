@@ -8,6 +8,7 @@ import com.example.ForumServer.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,11 @@ public class PostController {
     @GetMapping(value = "/all")
     public List<Post> getAllPosts(){
         return postMapper.getAll();
+    }
+
+    @GetMapping(value = "/read")
+    public Result getPost(@RequestParam BigInteger post_id){
+        return postService.getPostById(post_id);
     }
 
     @GetMapping("/page")
